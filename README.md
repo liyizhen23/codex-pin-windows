@@ -24,7 +24,7 @@
 
 ## 安装
 
-1. 在仓库的 **Releases** 页面下载 `CodexPin-Windows-v1.0.0.zip`。
+1. 在仓库的 **Releases** 页面下载最新的 `CodexPin-Windows-v1.0.1.zip`。
 2. 解压全部文件。
 3. 在解压目录打开 PowerShell，运行：
 
@@ -73,4 +73,4 @@ Codex Pin 通过 `SetWinEventHook` 监听窗口创建、前台切换、位置变
 
 ## 许可
 
-Copyright (c) 2026 liyizhen23. All rights reserved. 未经许可不得再分发或用于衍生发布。
+本项目采用 [MIT License](LICENSE)。你可以自由使用、修改和分发，包括商业用途，但必须保留原版权声明与许可证文本。
