@@ -1,0 +1,6 @@
+dist/
+*.obj
+*.pdb
+*.ilk
+*.log
+.vs/
