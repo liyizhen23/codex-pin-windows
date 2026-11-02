@@ -11,6 +11,7 @@
 - 点击图钉切换“始终置顶”状态
 - `Ctrl + Alt + P` 快速切换置顶
 - 自动跟随 Codex 窗口的位置、显示、隐藏、最小化与关闭
+- 自动忽略 Codex 创建的隐藏 Electron 窗口，只绑定当前可见主窗口
 - 从标题栏取色，适配 Codex 的浅色/深色界面
 - 原生事件驱动，不使用高频定时轮询
 - 单实例运行，支持开机自动启动
@@ -63,7 +64,7 @@ powershell -ExecutionPolicy Bypass -File .\Uninstall-CodexPin.ps1
 
 ## 实现说明
 
-Codex Pin 通过 `SetWinEventHook` 监听窗口创建、前台切换、位置变化、显示/隐藏和最小化事件；使用 `SetWindowPos(HWND_TOPMOST)` 切换 Codex 主窗口层级。图钉本身是一个透明、不可激活的 Win32 layered window，并以 Codex 主窗口作为 owner。
+Codex Pin 通过 `SetWinEventHook` 监听窗口创建、前台切换、位置变化、显示/隐藏和最小化事件；发现窗口时会忽略 Codex 的隐藏 Electron 窗口，并使用 `SetWindowPos(HWND_TOPMOST)` 切换可见主窗口的层级。图钉本身是一个透明、不可激活的 Win32 layered window，并以 Codex 主窗口作为 owner。
 
 程序仅检查本机窗口与进程路径，不读取对话内容，不联网，也不收集遥测。若 Codex 将来改变 Windows 包名、进程名或窗口实现，窗口识别逻辑可能需要同步调整。
 

@@ -73,6 +73,10 @@ bool IsCodexWindow(HWND hwnd) {
            normalized.ends_with(L"\\chatgpt.exe");
 }
 
+bool IsVisibleCodexWindow(HWND hwnd) {
+    return IsCodexWindow(hwnd) && IsWindowVisible(hwnd);
+}
+
 struct FindState {
     HWND best = nullptr;
     long long bestArea = 0;
@@ -80,7 +84,7 @@ struct FindState {
 
 BOOL CALLBACK FindCodexWindowProc(HWND hwnd, LPARAM param) {
     auto* state = reinterpret_cast<FindState*>(param);
-    if (!IsCodexWindow(hwnd)) {
+    if (!IsVisibleCodexWindow(hwnd)) {
         return TRUE;
     }
 
@@ -100,7 +104,7 @@ BOOL CALLBACK FindCodexWindowProc(HWND hwnd, LPARAM param) {
 
 HWND FindCodexWindow() {
     const HWND foreground = GetForegroundWindow();
-    if (IsCodexWindow(foreground)) {
+    if (IsVisibleCodexWindow(foreground)) {
         return foreground;
     }
 
@@ -296,7 +300,7 @@ void UnbindTarget() {
 }
 
 void BindTarget(HWND hwnd) {
-    if (!IsCodexWindow(hwnd)) {
+    if (!IsVisibleCodexWindow(hwnd)) {
         return;
     }
     if (g_target != hwnd) {
@@ -360,7 +364,7 @@ void CALLBACK WinEventCallback(
         const HWND root = GetAncestor(hwnd, GA_ROOT);
         if (g_target && root == g_target) {
             PositionButton();
-        } else if (!g_target && IsCodexWindow(root)) {
+        } else if (!g_target && IsVisibleCodexWindow(root)) {
             BindTarget(root);
         }
         return;
@@ -384,7 +388,7 @@ void CALLBACK WinEventCallback(
 
     if (!g_target && (event == EVENT_OBJECT_CREATE || event == EVENT_OBJECT_SHOW ||
                       event == EVENT_SYSTEM_MINIMIZEEND)) {
-        if (IsCodexWindow(root)) {
+        if (IsVisibleCodexWindow(root)) {
             BindTarget(root);
         }
     }
