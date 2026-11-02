@@ -25,7 +25,7 @@
 
 ## 安装
 
-1. 在仓库的 **Releases** 页面下载最新的 `CodexPin-Windows-v1.0.1.zip`。
+1. 在仓库的 **Releases** 页面下载最新的 `CodexPin-Windows-v1.0.2.zip`。
 2. 解压全部文件。
 3. 在解压目录打开 PowerShell，运行：
 
